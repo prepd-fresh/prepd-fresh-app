@@ -7,7 +7,7 @@ import {
     UPDATE_CART_ITEM_QTY,
     UPDATE_CART_STATUS,
     CartStatuses
-} from './actions';
+} from '../common/actions';
 const { DEFAULT } = CartStatuses;
 
 function products(state = {}, action) {

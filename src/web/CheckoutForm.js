@@ -10,28 +10,28 @@ import {
 
 const CheckoutForm = ({className, stripe}) => {
   // this should come from RN
-  const [cart, setCart] = useState({})
+  const [cartItems, setCartItems] = useState({})
   const [cartStatus, setCartStatus] = useState(CartStatuses.DEFAULT);
-  const [totalPrice, setTotalPrice] = useState(1.00)
+  const [totalPrice, setTotalPrice] = useState(1.00);
   
   const sendMessageToRN = action => {
     if (window.hasOwnProperty('ReactNativeWebView')) {
       window.ReactNativeWebView.postMessage(JSON.stringify(action));
     } else {
-      console.log('page not loaded in WebView. Action posted:\n', action)
+      console.log('page not loaded in WebView. Action posted:\n', action);
     }
   }
 
   useEffect(() => {
+
     const handleMessageFromRN = data => {
-      console.log(data)
       let parsedData = typeof data.data === 'string' 
         ? JSON.parse(data.data) 
-        : data.data;
+        : data.data
       switch(parsedData.type) {
         case 'PREPD_CART':
           // we capture entire Cart to send for pre-charge server-side validation
-          setCart(cart);
+          setCartItems(parsedData.cartItems);
           setCartStatus(parsedData.cartStatus);
           setTotalPrice(parsedData.totalPrice);
           break;
@@ -71,7 +71,7 @@ const CheckoutForm = ({className, stripe}) => {
           phoneNumber: details.phoneNumber,
           orderNotes: details.orderNotes,
         },
-        cartItems: cart,
+        cartItems,
         totalPrice
       })
     }

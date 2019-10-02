@@ -31,9 +31,9 @@ const CheckoutForm = ({className, stripe}) => {
       switch(parsedData.type) {
         case 'PREPD_CART':
           // we capture entire Cart to send for pre-charge server-side validation
-          setCartItems(parsedData.cartItems);
-          setCartStatus(parsedData.cartStatus);
-          setTotalPrice(parsedData.totalPrice);
+          setCartItems(parsedData.data.cartItems);
+          setCartStatus(parsedData.data.cartStatus);
+          setTotalPrice(parsedData.data.totalPrice);
           break;
         default:
           break;
@@ -221,6 +221,7 @@ export default injectStripe(styled(CheckoutForm)`
     position: relative;
     height: 500px;
     width: 100%;
+    padding: 20px;
     background-color: #FAF8F4;
 
     form {
@@ -282,27 +283,30 @@ export default injectStripe(styled(CheckoutForm)`
             margin-top: 10px;
         }
     }
-    .checkout-form, 
+    ${'' /* .checkout-form, 
     .processing-message, 
     .success-message {
         position: absolute;
         top: 0;
         left: 0;
-    }
+    } */}
     
     &.DEFAULT {
         .checkout-form {
             visibility: visible;
+            position: relative;
             opacity: 1;
             transition: opacity 0.2s linear;
         }
         .processing-message {
             visibility: hidden;
+            position: absolute;
             opacity: 0;
             transition: visibility 0s 0.2s, opacity 0.2s linear;
         }
         .success-message {
             visibility: hidden;
+            position: absolute;
             opacity: 0;
             transition: visibility 0s 0.2s, opacity 0.2s linear;
         }
@@ -311,16 +315,19 @@ export default injectStripe(styled(CheckoutForm)`
     &.PROCESSING {
         .checkout-form {
             visibility: hidden;
+            position: absolute;
             opacity: 0;
             ${'' /* transition: visibility 0s 0.2s, opacity 0.2s linear; */}
         }
         .processing-message {
             visibility: visible;
+            position: relative;
             opacity: 1;
             ${'' /* transition: opacity 0.2s linear; */}
         }
         .success-message {
             visibility: hidden;
+            position: absolute;
             opacity: 0;
             transition: visibility 0s 0.2s, opacity 0.2s linear;
         }
@@ -329,16 +336,19 @@ export default injectStripe(styled(CheckoutForm)`
     &.SUCCESS {
         .checkout-form {
             visibility: hidden;
+            position: absolute;
             opacity: 0;
             transition: visibility 0s 0.2s, opacity 0.2s linear;
         }
         .processing-message {
             visibility: hidden;
+            position: absolute;
             opacity: 0;
             transition: visibility 0s 0.2s, opacity 0.2s linear;
         }
         .success-message {
             visibility: visible;
+            position: relative;
             opacity: 1;
             transition: opacity 0.2s linear;
             h2, p {

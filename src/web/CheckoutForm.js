@@ -113,8 +113,6 @@ const CheckoutForm = ({className, stripe}) => {
   const billingAddressWasProvided = (values) => 
     (!!values.billingAddressLine1.length && !!values.billingAddressCity)
 
-  const checkoutPending = (cartStatus !== CartStatuses.SUCCESS && totalPrice > 0)
-
   const CopyAddressCheckbox = ({values, setFieldValue}) => (
     <Fragment>
       <Field 
@@ -161,58 +159,54 @@ const CheckoutForm = ({className, stripe}) => {
         <h2>Payment successful</h2>
         <p>Thank you for ordering from Prep'd Fresh!</p>
       </div>
-      {
-        checkoutPending && (
-          <div className="checkout-form">
-            <Formik 
-              initialValues={initialValues}
-              validationSchema={checkoutValidationSchema}
-              onSubmit={details => handleSubmit(details, stripe)}
-            >  
-              {({ values, setFieldValue }) => (
-                <Fragment>
-                  <p>Would you like to finish your purchase?</p>
-                  <Form>
-                    <CardElement 
-                      className="card-element"
-                      style={{ base: { "::placeholder": { color: "#AAA", fontSize: "16px", fontWeight: 100 } } }} 
-                    />
-                    <Field name="firstName" placeholder="First name" />
-                    <ErrorMessage name="firstName" />
-                    <Field name="lastName" placeholder="Last name" />
-                    <ErrorMessage name="lastName" />
-                    <fieldset><legend>Billing Address</legend>
-                      <Field name="billingAddressLine1" placeholder="Billing address line 1" />
-                      <ErrorMessage name="billingAddressLine1" />
-                      <Field name="billingAddressLine2" placeholder="Billing address line 2 (Optional)" />
-                      <ErrorMessage name="billingAddressLine2" />
-                      <Field name="billingAddressCity" placeholder="Billing address city" />
-                      <ErrorMessage name="billingAddressCity" />
-                    </fieldset>
-                    { billingAddressWasProvided(values) 
-                      && <CopyAddressCheckbox {...{values, setFieldValue}} /> }
-                    <fieldset><legend>Delivery Address</legend>
-                      <Field name="deliveryAddressLine1" placeholder="Delivery address line 1" />
-                      <ErrorMessage name="deliveryAddressLine1" />
-                      <Field name="deliveryAddressLine2" placeholder="Delivery address line 2 (Optional)" />
-                      <ErrorMessage name="deliveryAddressLine2" />
-                      <Field name="deliveryAddressCity" placeholder="Delivery address city" />
-                      <ErrorMessage name="deliveryAddressCity" />
-                    </fieldset>
-                    <Field name="phoneNumber" placeholder="Phone number" />
-                    <ErrorMessage name="phoneNumber" />
-                    <Field name="email" placeholder="Email" />
-                    <ErrorMessage name="email" />
-                    <Field name="orderNotes" placeholder="Order notes (Optional)" />
-                    <ErrorMessage name="orderNotes" />
-                    <br/><button type="submit">Pay ${totalPrice}</button>
-                  </Form>
-                  </Fragment>
-                )}
-            </Formik>
-          </div>
-        )
-      }
+        <div className="checkout-form">
+          <Formik 
+            initialValues={initialValues}
+            validationSchema={checkoutValidationSchema}
+            onSubmit={details => handleSubmit(details, stripe)}
+          >  
+            {({ values, setFieldValue }) => (
+              <Fragment>
+                <p>Would you like to finish your purchase?</p>
+                <Form>
+                  <CardElement 
+                    className="card-element"
+                    style={{ base: { "::placeholder": { color: "#AAA", fontSize: "16px", fontWeight: 100 } } }} 
+                  />
+                  <Field name="firstName" placeholder="First name" />
+                  <ErrorMessage name="firstName" />
+                  <Field name="lastName" placeholder="Last name" />
+                  <ErrorMessage name="lastName" />
+                  <fieldset><legend>Billing Address</legend>
+                    <Field name="billingAddressLine1" placeholder="Billing address line 1" />
+                    <ErrorMessage name="billingAddressLine1" />
+                    <Field name="billingAddressLine2" placeholder="Billing address line 2 (Optional)" />
+                    <ErrorMessage name="billingAddressLine2" />
+                    <Field name="billingAddressCity" placeholder="Billing address city" />
+                    <ErrorMessage name="billingAddressCity" />
+                  </fieldset>
+                  { billingAddressWasProvided(values) 
+                    && <CopyAddressCheckbox {...{values, setFieldValue}} /> }
+                  <fieldset><legend>Delivery Address</legend>
+                    <Field name="deliveryAddressLine1" placeholder="Delivery address line 1" />
+                    <ErrorMessage name="deliveryAddressLine1" />
+                    <Field name="deliveryAddressLine2" placeholder="Delivery address line 2 (Optional)" />
+                    <ErrorMessage name="deliveryAddressLine2" />
+                    <Field name="deliveryAddressCity" placeholder="Delivery address city" />
+                    <ErrorMessage name="deliveryAddressCity" />
+                  </fieldset>
+                  <Field name="phoneNumber" placeholder="Phone number" />
+                  <ErrorMessage name="phoneNumber" />
+                  <Field name="email" placeholder="Email" />
+                  <ErrorMessage name="email" />
+                  <Field name="orderNotes" placeholder="Order notes (Optional)" />
+                  <ErrorMessage name="orderNotes" />
+                  <br/><button type="submit">Pay ${totalPrice}</button>
+                </Form>
+                </Fragment>
+              )}
+          </Formik>
+        </div>
     </div>
   );
 }

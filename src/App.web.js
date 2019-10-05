@@ -16,7 +16,6 @@ const GlobalStyle = createGlobalStyle`
     color: #3E444B;
   }
   body {
-    min-height: 100vh;
     font-family: 'Roboto', sans-serif;
   }
   body, html {
@@ -25,6 +24,7 @@ const GlobalStyle = createGlobalStyle`
     touch-action: none;
     position: relative;
     height: 100%;
+    overflow: hidden;
   }
 `
 

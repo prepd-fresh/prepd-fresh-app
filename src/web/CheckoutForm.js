@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import checkoutValidationSchema from './checkoutValidationSchema';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { updateCartStatus, CartStatuses } from '../common/actions';
+import { updateCartStatus, CartStatuses, resizeWebView } from '../common/actions';
 import styled from 'styled-components';
 import { 
   CardElement, 
@@ -16,6 +16,7 @@ const CheckoutForm = ({className, stripe}) => {
   
   const sendMessageToRN = action => {
     if (window.hasOwnProperty('ReactNativeWebView')) {
+
       window.ReactNativeWebView.postMessage(JSON.stringify(action));
     } else {
       console.log('page not loaded in WebView. Action posted:\n', action);
@@ -23,6 +24,7 @@ const CheckoutForm = ({className, stripe}) => {
   }
 
   useEffect(() => {
+    sendMessageToRN(resizeWebView(document.body.clientHeight + 'px'));
 
     const handleMessageFromRN = data => {
       let parsedData = typeof data.data === 'string' 
@@ -215,9 +217,7 @@ export default injectStripe(styled(CheckoutForm)`
     position: relative;
     height: 500px;
     width: 100%;
-    padding: 20px;
     background-color: #FAF8F4;
-
     form {
         fieldset {
             border-radius: 10px;
@@ -264,7 +264,8 @@ export default injectStripe(styled(CheckoutForm)`
         }
         p {
             color: #666;
-            font-size: 12px;
+            ${'' /* font-size: 12px; */}
+            font-size: 17px;
             font-style: italic;
         }
         &> button {
@@ -277,13 +278,6 @@ export default injectStripe(styled(CheckoutForm)`
             margin-top: 10px;
         }
     }
-    ${'' /* .checkout-form, 
-    .processing-message, 
-    .success-message {
-        position: absolute;
-        top: 0;
-        left: 0;
-    } */}
     
     &.DEFAULT {
         .checkout-form {
@@ -311,13 +305,13 @@ export default injectStripe(styled(CheckoutForm)`
             visibility: hidden;
             position: absolute;
             opacity: 0;
-            ${'' /* transition: visibility 0s 0.2s, opacity 0.2s linear; */}
+            transition: visibility 0s 0.2s, opacity 0.2s linear;
         }
         .processing-message {
             visibility: visible;
             position: relative;
             opacity: 1;
-            ${'' /* transition: opacity 0.2s linear; */}
+            transition: opacity 0.2s linear;
         }
         .success-message {
             visibility: hidden;

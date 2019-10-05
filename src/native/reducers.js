@@ -6,6 +6,7 @@ import {
     REMOVE_ITEM_FROM_CART,
     UPDATE_CART_ITEM_QTY,
     UPDATE_CART_STATUS,
+    RESIZE_WEBVIEW,
     CartStatuses
 } from '../common/actions';
 const { DEFAULT } = CartStatuses;
@@ -33,7 +34,7 @@ function cartStatus(state = DEFAULT, action) {
     }
 }
 
-function cartIsVisible(state = false, action) {
+function cartIsVisible(state = true, action) {
     switch(action.type) {
         case TOGGLE_CART_VISIBILITY:
             return (!state)
@@ -137,6 +138,15 @@ function sliderImgUrl(state = '', action) {
     }
 }
 
+function webViewHeight(state = '2000px', action) {
+  switch(action.type) {
+    case RESIZE_WEBVIEW:
+      return action.webViewHeight;
+    default:
+      return state;
+  }
+}
+
 const prepdApp = combineReducers({
     products,
     productSizeVariants,
@@ -147,7 +157,8 @@ const prepdApp = combineReducers({
     infoCards,
     testimonialHeadingImgUrl,
     testimonials,
-    sliderImgUrl
+    sliderImgUrl,
+    webViewHeight
 });
 
 export default prepdApp;

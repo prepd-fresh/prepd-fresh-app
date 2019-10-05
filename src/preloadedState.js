@@ -44,7 +44,7 @@ const preloadedState = {
           type: 'meal',
           id: 'fdga78df6gasd',
           productName: 'Pesto Chicken',
-          dek: 'This is a brief description of the menu item, yum!',
+          dek: 'This is a brief description of the menu item, yum yum yum yum yum!',
           veggie: false,
           imageUrl: 'meal_1.jpg',
       },
@@ -181,24 +181,24 @@ const preloadedState = {
           veggie: false,
           qty: 1
       },
-      // oisdfa02: {
-      //     id: "oisdfa02",
-      //     productId: "asdf78df6gasd",
-      //     name: "Broccoli Salad",
-      //     itemPrice: 7.99,
-      //     size: "large",
-      //     veggie: true,
-      //     qty: 4
-      // },
-      // oisdfa03: {
-      //     id: "oisdfa03",
-      //     productId: "erty78df6gasd",
-      //     name: "Something Else",
-      //     itemPrice: 7.99,
-      //     size: "large",
-      //     veggie: true,
-      //     qty: 2
-      // },
+      oisdfa02: {
+          id: "oisdfa02",
+          productId: "asdf78df6gasd",
+          name: "Broccoli Salad",
+          itemPrice: 7.99,
+          size: "large",
+          veggie: true,
+          qty: 4
+      },
+      oisdfa03: {
+          id: "oisdfa03",
+          productId: "erty78df6gasd",
+          name: "Something Else",
+          itemPrice: 7.99,
+          size: "large",
+          veggie: true,
+          qty: 2
+      },
   }
 };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TextInput, Text, View, Button } from 'react-native';
+import { StyleSheet, ScrollView, TextInput, Text, View, Button } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { removeItemFromCart, updateCartItemQty } from '../common/actions';
 import { FontAwesome } from '@expo/vector-icons';
@@ -16,77 +16,66 @@ const CartItem = ({cartItem: {name, ...cartItem}}) => {
     ));
     return (
         // <View className={"CartItem " + className}>
-        <StyledCartItem>
+        <CartItemView>
             {/* <View className="item-name-and-size"> */}
-            <View style={styles.cartItemDetails}>
-                <Text>{name.substr(0, 27)}{name.length > 27 && ' ...'}</Text>
-                <Text>{cartItem.size}{cartItem.veggie && ', vegetarian'}</Text>
-            </View>
+            <CartItemDetailsView>
+                <CartItemName>{name.substr(0, 27)}{name.length > 27 && ' ...'}</CartItemName>
+                <CartItemSizeVegDetails>{cartItem.size}{cartItem.veggie && ', vegetarian'}</CartItemSizeVegDetails>
+            </CartItemDetailsView>
             {/* <View className="qty-price"> */}
-            <View style={styles.cartItemEditor}>
-              <View style={styles.cartItemQtyPrice}>
+            <CartItemEditorView>
+              <CartItemQtyPriceView>
                 <TextInput 
                     pattern="[0-9]*" 
                     keyboardType="numeric"
                     type="text" 
+                    style={{borderColor: '#AAA', borderWidth: 1, height: 20}}
                     // value={cartItem.qty} 
                     value={String(cartItem.qty)}
                     onChangeText={updateItemQty}/>
                 <Text>X ${cartItem.itemPrice}</Text>
-              </View>
+              </CartItemQtyPriceView>
               <Button title="X" onPress={removeFromCart}/>
-            </View>
+            </CartItemEditorView>
             {/* <FontAwesome 
                 icon={faTrashAlt} 
                 size="1x" 
                 onClick={removeFromCart} /> */}
-        </StyledCartItem>
+        </CartItemView>
     );
 }
 
-const StyledCartItem = styled.View`
-  flex: 1;
+const CartItemView = styled.View`
   flex-direction: row;
   background-color: #FFF;
-  align-item: center;
+  align-items: center;
   justify-content: space-between;
-  width: 100%;
-  margin: 20px;
-`
-const styles = {}
-// const styles = StyleSheet.create({
-//   cartItem: {
-//     flex: 1,
-//     flexDirection: 'row',
-//     backgroundColor: '#FFF',
-//     alignItems: 'center',
-//     justifyContent: 'space-between',
-//     width: '100%',
-//     margin: 20
-//   },
-  // cartItemDetails: {
-  //   flex: 1,
-  //   paddingTop: 100,
-  //   backgroundColor: '#FAF8F4',
-  //   alignItems: 'center',
-  //   justifyContent: 'flex-start',
-  // },
-  // cartItemEditor: {
-  //   flex: 1,
-  //   paddingTop: 100,
-  //   backgroundColor: '#FAF8F4',
-  //   alignItems: 'center',
-  //   justifyContent: 'flex-start',
-  // },
-  // cartItemQtyPrice: {
-  //   flex: 1,
-  //   paddingTop: 100,
-  //   backgroundColor: '#FAF8F4',
-  //   alignItems: 'center',
-  //   justifyContent: 'flex-start',
-  // },
+  padding: 20px;
+  border-bottom-width: 1px;
+  border-bottom-color: #DDD;
+  height: 60px;
   
-// });
+`
+const CartItemName = styled.Text`
+  font-size: 11px;
+  color: #3E444B;
+  font-weight: bold;
+`
+
+const CartItemSizeVegDetails = styled.Text`
+  font-size: 11px;
+  color: #3E444B;
+`
+
+const CartItemDetailsView = styled.View``
+
+const CartItemEditorView = styled.View`
+  flex-direction: row;
+`
+
+const CartItemQtyPriceView = styled.View`
+  padding-right: 20px;
+`
 
 export default CartItem;
 // export default styled(CartItem)`

@@ -12,6 +12,7 @@ export const CartStatuses = {
     SUCCESS: "SUCCESS"
 };
 export const CART_VISIBILITY = "CART_VISIBILITY";
+export const RESIZE_WEBVIEW = "RESIZE_WEBVIEW";
 
 // action creators
 
@@ -38,4 +39,9 @@ export const updateMealCardOptions = meal => ({
 export const updateCartStatus = status => ({
     type: UPDATE_CART_STATUS, 
     status
+})
+
+export const resizeWebView = sizeInPx => ({
+  type: RESIZE_WEBVIEW,
+  webViewHeight: sizeInPx
 })

@@ -1,11 +1,12 @@
 import React from 'react';
 import CartItem from './CartItem';
 import { View } from 'react-native';
+import styled from 'styled-components/native';
 // import styled from 'styled-components';
 
 const Cart = ({cartItems}) => (
     // <View className={"Cart " + className}>
-    <View>
+    <CartView>
         {Object.keys(cartItems)
                 .sort()
                 .map(itemId => (
@@ -13,8 +14,20 @@ const Cart = ({cartItems}) => (
                         key={itemId} 
                         cartItem={cartItems[itemId]} />
                 ))}
-    </View>
+    </CartView>
 );
+
+const CartView = styled.View`
+  background-color: #FFF;
+  border-radius: 5px;
+  padding: 10px;
+  shadow-color: #000;
+  shadow-offset: 0 3px;
+  shadow-opacity: 0.16;
+  shadow-radius: 6px;
+  elevation: 6;
+  margin: 10px 0;
+`
 
 export default Cart;
 // export default styled(Cart)`

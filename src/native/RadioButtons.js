@@ -36,6 +36,8 @@ const Label = styled.TouchableOpacity`
 
 const LabelText = styled.Text`
   color: grey;
+  margin-left: 10px;
+  margin-right: 10px
 `;
 
 const OuterCircle = styled.View`

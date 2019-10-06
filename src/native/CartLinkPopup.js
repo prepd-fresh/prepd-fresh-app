@@ -25,12 +25,14 @@ const CartLinkPopup = ({qtyOfItems, total, openCart, ...props}) => (
 
 const WhiteText = styled.Text`
   color: white;
+  font-weight: bold;
+  font-size: 17px;
 `;
 
 const StyledTouchableOpacity = styled.TouchableOpacity`
   position: absolute;
   flex-direction: row;
-  background-color: #23B47E;
+  background-color: orange;
   bottom: 40px;
   elevation: 6;
   shadow-color: #000;

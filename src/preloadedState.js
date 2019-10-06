@@ -44,7 +44,7 @@ const preloadedState = {
           type: 'meal',
           id: 'fdga78df6gasd',
           productName: 'Pesto Chicken',
-          dek: 'This is a brief description of the menu item, yum yum yum yum yum!',
+          dek: 'Prime Mongolian beef cooked to perfection, loaded with savory asian style sauce. Served with an ample amount of rice and broccoli to provide a protein based meal that is perfect for dinners and post-workouts',
           veggie: false,
           imageUrl: 'meal_1.jpg',
       },

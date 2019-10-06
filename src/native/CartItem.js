@@ -26,13 +26,14 @@ const CartItem = ({cartItem: {name, ...cartItem}}) => {
             <CartItemEditorView>
               <CartItemQtyPriceView>
                 <TextInput 
-                    pattern="[0-9]*" 
-                    keyboardType="numeric"
-                    type="text" 
-                    style={{borderColor: '#AAA', borderWidth: 1, height: 20}}
-                    // value={cartItem.qty} 
-                    value={String(cartItem.qty)}
-                    onChangeText={updateItemQty}/>
+                  selectTextOnFocus
+                  pattern="[0-9]*" 
+                  keyboardType="numeric"
+                  type="text" 
+                  style={{borderColor: '#AAA', paddingLeft: 5, borderWidth: 1, height: 20}}
+                  // value={cartItem.qty} 
+                  value={String(cartItem.qty)}
+                  onChangeText={updateItemQty}/>
                 <Text>X ${cartItem.itemPrice}</Text>
               </CartItemQtyPriceView>
               <Button title="X" onPress={removeFromCart}/>

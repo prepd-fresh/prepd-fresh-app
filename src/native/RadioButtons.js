@@ -1,16 +1,18 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-const RadioButtons = props => {
-  const updateThisRadioGroup = updateSelectValue(props.radioGroupId);
-  return (
-    <RadioButtonsContainer>
-      {props.btns.map(btnProps => (
-        <RadioButton {...btnProps} selectRadioButton={updateThisRadioGroup}/>
-      ))}
-    </RadioButtonsContainer>
-  );
-};
+const RadioButtons = props => (
+  <RadioButtonsContainer>
+    {props.btns.map(btnProps => (
+      <RadioButton 
+        key={btnProps.id}
+        isSelected={props.selected === btnProps.id} 
+        selectRadioButton={props.selectRadioButton}
+        {...btnProps} 
+      />
+    ))}
+  </RadioButtonsContainer>
+);
 
 const RadioButtonsContainer = styled.View`
   flex-direction: ${props => props.btnGroupDirection || 'row'}
@@ -19,7 +21,7 @@ const RadioButtonsContainer = styled.View`
 const RadioButton = ({id, isSelected, label, selectRadioButton, btnLabelDirection}) => {
   const selectThisRadioButton = selectRadioButton(id);
   return (
-    <Label key={id} direction={btnLabelDirection} onPress={selectThisRadioButton}>
+    <Label  direction={btnLabelDirection} onPress={selectThisRadioButton}>
       <OuterCircle isSelected={isSelected} >
         <InnerCircle isSelected={isSelected} />
       </OuterCircle>
@@ -28,11 +30,11 @@ const RadioButton = ({id, isSelected, label, selectRadioButton, btnLabelDirectio
   );
 };
 
-const Label = styled.View`
+const Label = styled.TouchableOpacity`
   flex-direction: ${props => props.direction || 'row'}
 `;
 
-const LabelText = styled.View`
+const LabelText = styled.Text`
   color: grey;
 `;
 
@@ -43,14 +45,14 @@ const OuterCircle = styled.View`
   border: 2px solid ${props => props.isSelected ? 'orange' : 'grey'};
   height: 18px;
   width: 18px;
-  border-radius: 50%;
+  border-radius: 9px;
 `;
 
 const InnerCircle = styled.View`
   background-color: orange;
   height: 10px;
   width: 10px;
-  border-radius: 50%;
+  border-radius: 5px;
   margin: 1px;
   display: ${props => props.isSelected ? 'flex' : 'none'}
 `;

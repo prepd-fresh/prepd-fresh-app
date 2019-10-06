@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { Text, TextInput } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { addItemToCart } from '../common/actions';
 import styled from 'styled-components/native';
@@ -7,13 +7,10 @@ import RadioButtons from './RadioButtons';
 
 const MealCard = ({veggie, ...props}) => {
 
-    const [state, setState] = useState({
-        size: 'reg',
-        quantity: 1,
-    });
+    const [size, setSize] = useState('reg');
+    const [quantity, setQuantity] = useState(1);
 
     const { id } = props;
-    const { size, quantity } = state;
     const sizeDetails = Object.keys(props.sizeVariants)
         .map(key => props.sizeVariants[key])
         .filter(sizeVariant => (
@@ -22,36 +19,34 @@ const MealCard = ({veggie, ...props}) => {
         ))[0];
     const { cal, car, fat, pro } =  sizeDetails.nutrition;
 
-    const mergeState = newState => setState({
-        ...state,
-        ...newState
-    })
-
-    // const handleChange = key => e => mergeState({[key]: e.target.value})
-    const handleChange = key => e => null;
-
-    // const handleQuantityChange = ({ target: { value } }) => {
-    //     let newValue = '';
-    //     if ( /^\d+$/.test(value) ) newValue = Math.abs(Number(value))
-    //     mergeState({
-    //         quantity: newValue
-    //     })
-    // }
-    const handleQuantityChange = () => null
-
-    const toggle = key => () => mergeState({
-        [key]: !state[key]
-    })
+    const handleQuantityChange = val => setQuantity(
+      /^\d+$/.test(val) 
+        ? Math.abs(Number(val)) 
+        : ''
+    )
 
     const dispatch = useDispatch();
+
+    const selectSizeRadioButton = val => () => setSize(val);
+
     const addToCart = () => dispatch(addItemToCart({
         productId: id,
         name: props.productName,
         itemPrice: sizeDetails.price,
-        size: state.size,
+        size: size,
         veggie: veggie,
-        qty: state.quantity
-    }))
+        qty: quantity
+    }));
+
+    const sizeRadioButtons = {
+      radioGroupId: 'size',
+      selected: size,
+      selectRadioButton: selectSizeRadioButton,
+      btns: [ 
+        { id: 'reg', label: "Regular" }, 
+        { id: 'lg', label: "Large" } 
+      ]
+    };
 
     return (
       <MealCardView>
@@ -65,12 +60,13 @@ const MealCard = ({veggie, ...props}) => {
             <Dek>{props.dek}</Dek>
             <SizeVegetarianGroup>
               <SizeButtonGroup>
+                <RadioButtons {...sizeRadioButtons} />
                 {/* <label htmlFor={`${props.id}-size-reg`} >
                       <input 
                           type="radio" 
                           value="reg"
-                          onChange={handleChange('size')}
-                          checked={state.size === 'reg'}
+                          onChange={setSize('size')}
+                          checked={size === 'reg'}
                           id={`${props.id}-size-reg`} />
                       <Text>Regular</Text>
                   </label>
@@ -78,13 +74,11 @@ const MealCard = ({veggie, ...props}) => {
                       <input 
                           type="radio" 
                           value="lg"
-                          onChange={handleChange('size')}
-                          checked={state.size === 'lg'}
+                          onChange={setSize('size')}
+                          checked={size === 'lg'}
                           id={`${props.id}-size-lg`} />
                       <Text>Large</Text>
                   </label> */}
-                <RadioButton title="Reg" />
-                <RadioButton title="Lrg" />
               </SizeButtonGroup>
               {(veggie) && <Text>Vegetarian</Text>}
             </SizeVegetarianGroup>
@@ -94,9 +88,17 @@ const MealCard = ({veggie, ...props}) => {
                 <input type="text" 
                         pattern="[0-9]*" 
                         placeholder="0"
-                        value={state.quantity} 
+                        value={quantity} 
                         onChange={handleQuantityChange} />  */}
                 <Text>Quantity</Text>
+                <TextInput 
+                    pattern="[0-9]*" 
+                    keyboardType="numeric"
+                    type="text" 
+                    style={{borderColor: '#AAA', width: 25, borderWidth: 1, height: 20}}
+                    // value={cartItem.qty} 
+                    value={String(quantity)}
+                    onChangeText={setQuantity}/>
                 {/* <Input /> */}
               </QuantityEditGroup>
               <Text>${(sizeDetails.price * quantity).toFixed(2)}</Text>

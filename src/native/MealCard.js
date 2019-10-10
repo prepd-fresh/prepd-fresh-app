@@ -1,125 +1,115 @@
-import React, { useState } from 'react';
-import { Text, TextInput } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { addItemToCart } from '../common/actions';
-import styled from 'styled-components/native';
-import RadioButtons from './RadioButtons';
+import React, { useState } from "react";
+import { Text, TextInput, Platform } from "react-native";
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "../common/actions";
+import styled from "styled-components/native";
+import RadioButtons from "./RadioButtons";
 
-const MealCard = ({veggie, ...props}) => {
+const MealCard = ({ veggie, ...props }) => {
+  const [size, setSize] = useState("reg");
+  const [quantity, setQuantity] = useState(1);
 
-    const [size, setSize] = useState('reg');
-    const [quantity, setQuantity] = useState(1);
+  const { id } = props;
+  const sizeDetails = Object.keys(props.sizeVariants)
+    .map(key => props.sizeVariants[key])
+    .filter(
+      sizeVariant => sizeVariant.productId === id && sizeVariant.size === size
+    )[0];
+  const { cal, car, fat, pro } = sizeDetails.nutrition;
 
-    const { id } = props;
-    const sizeDetails = Object.keys(props.sizeVariants)
-        .map(key => props.sizeVariants[key])
-        .filter(sizeVariant => (
-            sizeVariant.productId === id
-            && sizeVariant.size === size
-        ))[0];
-    const { cal, car, fat, pro } =  sizeDetails.nutrition;
+  const handleQuantityChange = val =>
+    setQuantity(/^\d+$/.test(val) ? Math.abs(Number(val)) : "");
 
-    const handleQuantityChange = val => setQuantity(
-      /^\d+$/.test(val) 
-        ? Math.abs(Number(val)) 
-        : ''
-    )
+  const increment = () => handleQuantityChange(quantity + 1);
+  const decrement = () =>
+    handleQuantityChange(quantity - 1 < 0 ? 0 : quantity - 1);
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const selectSizeRadioButton = val => () => setSize(val);
+  const selectSizeRadioButton = val => () => setSize(val);
 
-    const addToCart = () => dispatch(addItemToCart({
+  const addToCart = () =>
+    dispatch(
+      addItemToCart({
         productId: id,
         name: props.productName,
         itemPrice: sizeDetails.price,
         size: size,
         veggie: veggie,
         qty: quantity
-    }));
+      })
+    );
 
-    const sizeRadioButtons = {
-      radioGroupId: 'size',
-      selected: size,
-      selectRadioButton: selectSizeRadioButton,
-      btns: [ 
-        { id: 'reg', label: "Regular" }, 
-        { id: 'lg', label: "Large" } 
-      ]
-    };
+  const sizeRadioButtons = {
+    radioGroupId: "size",
+    selected: size,
+    selectRadioButton: selectSizeRadioButton,
+    btns: [{ id: "reg", label: "Regular" }, { id: "lg", label: "Large" }]
+  };
 
-    return (
-      <MealCardView>
-        <Meal>
-          <MealDetails>
-            <MealImageWrapper className="meal-img-wrapper">
-              <Text>[Image]</Text>
-                {/* <img className="meal-img" src={`/img/${props.imageUrl}`} /> */}
-            </MealImageWrapper>
-            <Hed>{props.productName}</Hed>
-            <Dek>{props.dek}</Dek>
-            <SizeVegetarianGroup>
-              <SizeButtonGroup>
-                <RadioButtons {...sizeRadioButtons} />
-                {/* <label htmlFor={`${props.id}-size-reg`} >
-                      <input 
-                          type="radio" 
-                          value="reg"
-                          onChange={setSize('size')}
-                          checked={size === 'reg'}
-                          id={`${props.id}-size-reg`} />
-                      <Text>Regular</Text>
-                  </label>
-                  <label htmlFor={`${props.id}-size-lg`}>
-                      <input 
-                          type="radio" 
-                          value="lg"
-                          onChange={setSize('size')}
-                          checked={size === 'lg'}
-                          id={`${props.id}-size-lg`} />
-                      <Text>Large</Text>
-                  </label> */}
-              </SizeButtonGroup>
-              {(veggie) && <Text>Vegetarian</Text>}
-            </SizeVegetarianGroup>
-            <QuantityPriceGroup>
-              <QuantityEditGroup>
-                {/* <label>Quantity&nbsp;</label>
-                <input type="text" 
-                        pattern="[0-9]*" 
-                        placeholder="0"
-                        value={quantity} 
-                        onChange={handleQuantityChange} />  */}
-                <Text style={{fontSize: 17, alignSelf: 'center', paddingRight: 5}}>Quantity</Text>
-                <QuantityButton backgroundColor="#D52626"><Text style={{color: 'white', fontWeight: 'bold'}}>-</Text></QuantityButton>
-                <TextInput 
-                    selectTextOnFocus
-                    pattern="[0-9]*" 
-                    keyboardType="numeric"
-                    type="text" 
-                    style={{borderColor: '#AAA', paddingLeft: 5, width: 25, borderWidth: 1, marginLeft: 5, marginRight: 5}}
-                    // value={cartItem.qty} 
-                    value={String(quantity)}
-                    onChangeText={setQuantity}/>
-                <QuantityButton backgroundColor="#23B47E"><Text style={{color: 'white', fontWeight: 'bold'}}>+</Text></QuantityButton>
-                {/* <Input /> */}
-              </QuantityEditGroup>
-              <PriceText>${(sizeDetails.price * quantity).toFixed(2)}</PriceText>
-            </QuantityPriceGroup>
-          </MealDetails>
-        </Meal>
-        {/* <button onClick={addToCart}>
-              <FontAwesomeIcon
-                  icon={faCartPlus}
-                  size="1x"
-                  color="#FFF" />
-          </button> */}
-        <AddToCartButton onPress={addToCart}>
-          <AddToCartButtonText>ADD TO CART</AddToCartButtonText>
-        </AddToCartButton>
-        <CalorieInfo>{`Cal ${cal * quantity} - Carbs ${car * quantity}g - Fat ${fat * quantity}g - Protein ${pro * quantity}g`}</CalorieInfo>
-      </MealCardView>
-    )
+  const imageSource = `${
+    Platform.OS === "ios" ? "http://localhost:9000" : "http://10.0.2.2:9000"
+  }/img/${props.imageUrl}`;
+
+  return (
+    <MealCardView>
+      <Meal>
+        <MealDetails>
+          <MealImageWrapper
+            resizeMode="cover"
+            resizeMethod="scale"
+            source={{ uri: imageSource }}
+          />
+          <Hed>{props.productName}</Hed>
+          <Dek>{props.dek}</Dek>
+          <SizeVegetarianGroup>
+            <SizeButtonGroup>
+              <RadioButtons {...sizeRadioButtons} />
+            </SizeButtonGroup>
+            {veggie && <Text>Vegetarian</Text>}
+          </SizeVegetarianGroup>
+          <QuantityPriceGroup>
+            <QuantityEditGroup>
+              <Text
+                style={{ fontSize: 17, alignSelf: "center", paddingRight: 5 }}
+              >
+                Quantity
+              </Text>
+              <QuantityButton onPress={decrement} backgroundColor="#D52626">
+                <Text style={{ color: "white", fontWeight: "bold" }}>-</Text>
+              </QuantityButton>
+              <TextInput
+                selectTextOnFocus
+                pattern="[0-9]*"
+                keyboardType="numeric"
+                type="text"
+                style={{
+                  borderColor: "#AAA",
+                  paddingLeft: 5,
+                  width: 50,
+                  borderWidth: 1,
+                  marginLeft: 5,
+                  marginRight: 5
+                }}
+                value={String(quantity)}
+                onChangeText={setQuantity}
+              />
+              <QuantityButton onPress={increment} backgroundColor="#23B47E">
+                <Text style={{ color: "white", fontWeight: "bold" }}>+</Text>
+              </QuantityButton>
+            </QuantityEditGroup>
+            <PriceText>${(sizeDetails.price * quantity).toFixed(2)}</PriceText>
+          </QuantityPriceGroup>
+        </MealDetails>
+      </Meal>
+      <AddToCartButton onPress={addToCart}>
+        <AddToCartButtonText>ADD TO CART</AddToCartButtonText>
+      </AddToCartButton>
+      <CalorieInfo>{`Cal ${cal * quantity} - Carbs ${car *
+        quantity}g - Fat ${fat * quantity}g - Protein ${pro *
+        quantity}g`}</CalorieInfo>
+    </MealCardView>
+  );
 };
 
 const RadioButton = styled.TouchableOpacity`
@@ -136,7 +126,7 @@ const RadioButton = styled.TouchableOpacity`
 `;
 
 const MealCardView = styled.View`
-  background: #FFF;
+  background: #fff;
   border-radius: 5px;
   shadow-opacity: 0.16;
   shadow-color: #000;
@@ -154,30 +144,18 @@ const Meal = styled.View`
   max-width: 100%;
 `;
 
-// const MealImageWrapper = styled.View`
-//   height: 100px;
-//   width: 100px;
-//   background-color: #DDD;
-//   border-radius: 5px;
-//   overflow: hidden;
-//   flex-grow: 0;
-//   flex-shrink: 0;
-//   max-width: 100%;
-// `;
-
-const MealImageWrapper = styled.View`
-  width: 100px;
-  background-color: #DDD;
+const MealImageWrapper = styled.Image`
   border-radius: 5px;
-  overflow: hidden;
-  flex-grow: 0;
-  flex-shrink: 0;
-  max-width: 100%;
+  flex: 1;
+  align-self: stretch;
+  width: 100%;
+  height: 150px;
+  margin-bottom: 10px;
 `;
 
 const MealDetails = styled.View`
-  align-items: flex-start;
-  flexShrink: 1;
+  align-items: stretch;
+  flex-shrink: 1;
   max-width: 100%;
   padding: 10px;
 `;
@@ -233,14 +211,14 @@ const QuantityButton = styled.TouchableOpacity`
 
 const AddToCartButton = styled.TouchableOpacity`
   max-width: 100%;
-  background-color: #23B47E;
+  background-color: #23b47e;
   padding: 15px;
   border-radius: 5px;
   align-items: center;
 `;
 
 const AddToCartButtonText = styled.Text`
-  color: #FFF;
+  color: #fff;
   font-weight: bold;
 `;
 

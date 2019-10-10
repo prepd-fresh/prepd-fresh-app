@@ -1,24 +1,16 @@
-import React from 'react';
-import { Text, View, Button, Platform, TouchableOpacity } from 'react-native';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import styled from 'styled-components/native';
+import React from "react";
+import { View } from "react-native";
+import styled from "styled-components/native";
 
-const CartLinkPopup = ({qtyOfItems, total, openCart, ...props}) => (
+const CartLinkPopup = ({ qtyOfItems, total, openCart }) => (
   <StyledTouchableOpacity onPress={openCart}>
     <View>
-        <WhiteText>{`${qtyOfItems} ${(qtyOfItems > 1) ? 'items' : 'item'} | $${total}`}</WhiteText>
+      <WhiteText>{`${qtyOfItems} ${
+        qtyOfItems > 1 ? "items" : "item"
+      } | $${total}`}</WhiteText>
     </View>
     <View>
-        <WhiteText>View Cart  </WhiteText>
-        {/* <FontAwesomeIcon icon={faShoppingCart} size="1x" color="#FFF"/> */}
-        {/* <Button 
-          title="CART" 
-          color={
-            (Platform.OS === 'ios') 
-              ? '#FFF' 
-              : '#23B47E'
-          }/> */}
+      <WhiteText>View Cart </WhiteText>
     </View>
   </StyledTouchableOpacity>
 );
@@ -39,9 +31,9 @@ const StyledTouchableOpacity = styled.TouchableOpacity`
   shadow-offset: 0 3px;
   shadow-opacity: 0.4;
   shadow-radius: 6px;
-  border-radius: 5px;
+  border-radius: 1000px;
   padding: 20px;
-  color: #FFF;
+  color: #fff;
   width: 320px;
   max-width: 100%;
   display: flex;
@@ -50,6 +42,4 @@ const StyledTouchableOpacity = styled.TouchableOpacity`
   z-index: 999;
 `;
 
-export default styled(CartLinkPopup)`
-    
-`;
+export default CartLinkPopup;

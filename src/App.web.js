@@ -1,10 +1,7 @@
-import React from 'react';
-import CheckoutForm from './web/CheckoutForm';
-import { 
-  StripeProvider, 
-  Elements, 
-} from 'react-stripe-elements';
-import {createGlobalStyle} from 'styled-components';
+import React from "react";
+import CheckoutForm from "./web/CheckoutForm";
+import { StripeProvider, Elements } from "react-stripe-elements";
+import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
@@ -19,14 +16,14 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Roboto', sans-serif;
   }
   body, html {
-    overflow: ${props => props.cartIsVisible ? 'hidden' : 'auto'};
+    overflow: ${props => (props.cartIsVisible ? "hidden" : "auto")};
     background-color: #FAF8F4;
     touch-action: none;
     position: relative;
     height: 100%;
     overflow: hidden;
   }
-`
+`;
 
 const App = () => (
   <React.Fragment>

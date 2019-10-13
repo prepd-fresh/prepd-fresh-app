@@ -9,13 +9,15 @@ import styled from "styled-components/native";
 
 const Checkout = ({ cartIsVisible }) => {
   const cartItems = useSelector(state => ({ ...state.cart }));
-  const totalPrice = Object.keys(cartItems).reduce(
-    (total, itemId) =>
-      (cartItems[itemId].itemPrice * 100 * cartItems[itemId].qty +
-        total * 100) /
-      100,
-    0
-  );
+  const totalPrice = Object.keys(cartItems)
+    .reduce(
+      (total, itemId) =>
+        (cartItems[itemId].itemPrice * 100 * cartItems[itemId].qty +
+          total * 100) /
+        100,
+      0
+    )
+    .toFixed(2);
   const showCheckoutWebView = () =>
     !(cartStatus === CartStatuses.DEFAULT && totalPrice === 0);
   const showCheckoutInfo = () =>
@@ -37,7 +39,7 @@ const Checkout = ({ cartIsVisible }) => {
         <React.Fragment>
           <Cart cartItems={cartItems} />
           <TotalView>
-            <Text>Total ${totalPrice.toFixed(2)}</Text>
+            <Text>Total ${totalPrice}</Text>
           </TotalView>
           <Text>
             *Meals are delivered every Sunday. The next delivery date is Sunday,

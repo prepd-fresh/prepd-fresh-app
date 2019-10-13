@@ -16,7 +16,10 @@ const Checkout = ({ cartIsVisible }) => {
       100,
     0
   );
-  const checkoutPending = cartStatus !== CartStatuses.SUCCESS && totalPrice > 0;
+  const showCheckoutWebView = () =>
+    !(cartStatus === CartStatuses.DEFAULT && totalPrice === 0);
+  const showCheckoutInfo = () =>
+    showCheckoutWebView() && cartStatus !== CartStatuses.SUCCESS;
   const cartStatus = useSelector(state => state.cartStatus);
   return (
     <KeyboardAwareScrollView
@@ -30,21 +33,27 @@ const Checkout = ({ cartIsVisible }) => {
       }}
     >
       <Heading2>Checkout</Heading2>
-      <Cart cartItems={cartItems} />
-      <TotalView>
-        <Text>Total ${totalPrice.toFixed(2)}</Text>
-      </TotalView>
-      <Text>
-        *Meals are delivered every Sunday. The next delivery date is Sunday,
-        July 28. Order by 11:59pm Friday, July 26 to receive your delivery this
-        Sunday.
-      </Text>
-      {checkoutPending && (
+      {showCheckoutInfo() && (
+        <React.Fragment>
+          <Cart cartItems={cartItems} />
+          <TotalView>
+            <Text>Total ${totalPrice.toFixed(2)}</Text>
+          </TotalView>
+          <Text>
+            *Meals are delivered every Sunday. The next delivery date is Sunday,
+            July 28. Order by 11:59pm Friday, July 26 to receive your delivery
+            this Sunday.
+          </Text>
+        </React.Fragment>
+      )}
+      {showCheckoutWebView() ? (
         <CheckoutFormWebView
           cartStatus={cartStatus}
           totalPrice={totalPrice}
           cartItems={cartItems}
         />
+      ) : (
+        <Text>No items in your cart.</Text>
       )}
     </KeyboardAwareScrollView>
   );

@@ -2,8 +2,17 @@ import React from "react";
 import { View } from "react-native";
 import styled from "styled-components/native";
 
-const CartLinkPopup = ({ qtyOfItems, total, openCart }) => (
-  <StyledTouchableOpacity onPress={openCart}>
+const CartLinkPopup = ({
+  qtyOfItems,
+  total,
+  openCart,
+  cartIsNotVisible,
+  cartItemsExist
+}) => (
+  <StyledTouchableOpacity
+    {...{ cartIsNotVisible, cartItemsExist }}
+    onPress={openCart}
+  >
     <View>
       <WhiteText>{`${qtyOfItems} ${
         qtyOfItems > 1 ? "items" : "item"
@@ -36,7 +45,8 @@ const StyledTouchableOpacity = styled.TouchableOpacity`
   color: #fff;
   width: 320px;
   max-width: 100%;
-  display: flex;
+  display: ${({ cartIsNotVisible, cartItemsExist }) =>
+    cartIsNotVisible && cartItemsExist ? "flex" : "none"};
   justify-content: space-between;
   align-self: center;
   z-index: 999;

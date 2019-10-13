@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Constants from "expo-constants";
 import { Text, TextInput, Platform } from "react-native";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../common/actions";
@@ -47,9 +48,18 @@ const MealCard = ({ veggie, ...props }) => {
     btns: [{ id: "reg", label: "Regular" }, { id: "lg", label: "Large" }]
   };
 
-  const imageSource = `${
-    Platform.OS === "ios" ? "http://localhost:9000" : "http://10.0.2.2:9000"
-  }/img/${props.imageUrl}`;
+  const getImageSource = () => {
+    let server;
+    if (!Constants.isDevice) {
+      server =
+        Platform.OS === "ios"
+          ? "http://localhost:9000"
+          : "http://10.0.2.2:9000";
+    } else {
+      server = "https://staging-prepdfresh.herokuapp.com";
+    }
+    return `${server}/img/${props.imageUrl}`;
+  };
 
   return (
     <MealCardView>
@@ -58,7 +68,7 @@ const MealCard = ({ veggie, ...props }) => {
           <MealImageWrapper
             resizeMode="cover"
             resizeMethod="scale"
-            source={{ uri: imageSource }}
+            source={{ uri: getImageSource() }}
           />
           <Hed>{props.productName}</Hed>
           <Dek>{props.dek}</Dek>
@@ -98,16 +108,14 @@ const MealCard = ({ veggie, ...props }) => {
                 <Text style={{ color: "white", fontWeight: "bold" }}>+</Text>
               </QuantityButton>
             </QuantityEditGroup>
-            <PriceText>${(sizeDetails.price * quantity).toFixed(2)}</PriceText>
+            <PriceText>${sizeDetails.price.toFixed(2)}</PriceText>
           </QuantityPriceGroup>
         </MealDetails>
       </Meal>
       <AddToCartButton onPress={addToCart}>
         <AddToCartButtonText>ADD TO CART</AddToCartButtonText>
       </AddToCartButton>
-      <CalorieInfo>{`Cal ${cal * quantity} - Carbs ${car *
-        quantity}g - Fat ${fat * quantity}g - Protein ${pro *
-        quantity}g`}</CalorieInfo>
+      <CalorieInfo>{`Cal ${cal} - Carbs ${car}g - Fat ${fat}g - Protein ${pro}g`}</CalorieInfo>
     </MealCardView>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import { TextInput, Text, Button } from "react-native";
 import { useDispatch } from "react-redux";
-import { removeItemFromCart, updateCartItemQty } from "../common/actions";
+import { removeItemFromCart, updateCartItemQty } from "../actions";
 import styled from "styled-components/native";
 
 const CartItem = ({ cartItem: { name, ...cartItem } }) => {

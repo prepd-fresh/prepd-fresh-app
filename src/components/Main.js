@@ -1,14 +1,19 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, useEffect } from "react-redux";
 import { View } from "react-native";
 import Checkout from "./Checkout";
 import NavBar from "./NavBar";
 import Menu from "./Menu";
 import CartLinkPopup from "./CartLinkPopup";
-import { toggleCartVisibility } from "../common/actions";
+// import { toggleCartVisibility, fetchProducts } from "../actions";
+import { toggleCartVisibility } from "../actions";
 
 const Main = () => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  });
 
   const cartIsVisible = useSelector(state => state.cartIsVisible);
   const cartIsNotVisible = !cartIsVisible;

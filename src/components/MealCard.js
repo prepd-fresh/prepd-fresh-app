@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Constants from "expo-constants";
 import { Text, TextInput, Platform } from "react-native";
 import { useDispatch } from "react-redux";
-import { addItemToCart } from "../common/actions";
+import { addItemToCart } from "../actions";
 import styled from "styled-components/native";
 import RadioButtons from "./RadioButtons";
 
@@ -45,7 +45,10 @@ const MealCard = ({ veggie, ...props }) => {
     radioGroupId: "size",
     selected: size,
     selectRadioButton: selectSizeRadioButton,
-    btns: [{ id: "reg", label: "Regular" }, { id: "lg", label: "Large" }]
+    btns: [
+      { id: "reg", label: "Regular" },
+      { id: "lg", label: "Large" }
+    ]
   };
 
   const getImageSource = () => {

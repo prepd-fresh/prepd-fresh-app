@@ -8,7 +8,7 @@ import {
   UPDATE_CART_STATUS,
   RESIZE_WEBVIEW,
   CartStatuses
-} from "../common/actions";
+} from "./actions";
 const { DEFAULT } = CartStatuses;
 
 function products(state = {}, action) {

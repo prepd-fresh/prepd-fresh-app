@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, Keyboard } from "react-native";
 import { useDispatch } from "react-redux";
-import { toggleCartVisibility } from "../common/actions";
+import { toggleCartVisibility } from "../actions";
 import styled from "styled-components/native";
 
 const NavMenu = () => {

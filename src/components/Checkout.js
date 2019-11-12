@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Text } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { CartStatuses } from "../common/actions";
+import { CartStatuses } from "../actions";
 import Cart from "./Cart";
 import CheckoutFormWebView from "./CheckoutFormWebView";
 import styled from "styled-components/native";

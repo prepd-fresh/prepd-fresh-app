@@ -1,20 +1,16 @@
-import React from "react";
-import { useSelector, useDispatch, useEffect } from "react-redux";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { View } from "react-native";
 import Checkout from "./Checkout";
 import NavBar from "./NavBar";
 import Menu from "./Menu";
 import CartLinkPopup from "./CartLinkPopup";
-// import { toggleCartVisibility, fetchProducts } from "../actions";
-import { toggleCartVisibility } from "../actions";
+import { toggleCartVisibility, fetchProducts } from "../actions";
+import { AppLoading } from "expo";
 
 const Main = () => {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchProducts());
-  });
-
+  const [isReady, setIsReady] = useState(false);
   const cartIsVisible = useSelector(state => state.cartIsVisible);
   const cartIsNotVisible = !cartIsVisible;
   const products = useSelector(state => state.products);
@@ -36,6 +32,16 @@ const Main = () => {
   const openCart = () => {
     if (cartIsNotVisible) dispatch(toggleCartVisibility());
   };
+
+  if (!isReady) {
+    return (
+      <AppLoading
+        startAsync={() => dispatch(fetchProducts())}
+        onFinish={() => setIsReady(true)}
+        onError={console.error}
+      />
+    );
+  }
 
   return (
     <View

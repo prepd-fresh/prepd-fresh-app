@@ -7,15 +7,13 @@ import styled from "styled-components/native";
 import RadioButtons from "./RadioButtons";
 
 const MealCard = ({ veggie, ...props }) => {
-  const [size, setSize] = useState("reg");
+  const [size, setSize] = useState("Regular");
   const [quantity, setQuantity] = useState(1);
 
   const { id } = props;
-  const sizeDetails = Object.keys(props.sizeVariants)
-    .map(key => props.sizeVariants[key])
-    .filter(
-      sizeVariant => sizeVariant.productId === id && sizeVariant.size === size
-    )[0];
+  const sizeDetails = Object.values(props.sizeVariants).filter(
+    sizeVariant => sizeVariant.productId === id && sizeVariant.size === size
+  )[0];
   const { cal, car, fat, pro } = sizeDetails.nutrition;
 
   const handleQuantityChange = val =>
@@ -46,22 +44,9 @@ const MealCard = ({ veggie, ...props }) => {
     selected: size,
     selectRadioButton: selectSizeRadioButton,
     btns: [
-      { id: "reg", label: "Regular" },
-      { id: "lg", label: "Large" }
+      { id: "Regular", label: "Regular" },
+      { id: "Large", label: "Large" }
     ]
-  };
-
-  const getImageSource = () => {
-    let server;
-    if (!Constants.isDevice) {
-      server =
-        Platform.OS === "ios"
-          ? "http://localhost:9000"
-          : "http://10.0.2.2:9000";
-    } else {
-      server = "https://staging-prepdfresh.herokuapp.com";
-    }
-    return `${server}/img/${props.imageUrl}`;
   };
 
   return (
@@ -71,7 +56,7 @@ const MealCard = ({ veggie, ...props }) => {
           <MealImageWrapper
             resizeMode="cover"
             resizeMethod="scale"
-            source={{ uri: getImageSource() }}
+            source={{ uri: props.imageUrl }}
           />
           <Hed>{props.productName}</Hed>
           <Dek>{props.dek}</Dek>
@@ -160,7 +145,7 @@ const MealImageWrapper = styled.Image`
   flex: 1;
   align-self: stretch;
   width: 100%;
-  height: 150px;
+  height: 250px;
   margin-bottom: 10px;
 `;
 

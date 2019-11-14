@@ -7,12 +7,15 @@ import {
   UPDATE_CART_ITEM_QTY,
   UPDATE_CART_STATUS,
   RESIZE_WEBVIEW,
+  UPDATE_PRODUCTS_LIST,
   CartStatuses
 } from "./actions";
 const { DEFAULT } = CartStatuses;
 
 function products(state = {}, action) {
   switch (action.type) {
+    case UPDATE_PRODUCTS_LIST:
+      return action.payload.products;
     default:
       return state;
   }
@@ -20,6 +23,8 @@ function products(state = {}, action) {
 
 function productSizeVariants(state = {}, action) {
   switch (action.type) {
+    case UPDATE_PRODUCTS_LIST:
+      return action.payload.productSizeVariants;
     default:
       return state;
   }

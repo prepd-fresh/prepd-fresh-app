@@ -31,6 +31,7 @@ const MealCard = ({ veggie, ...props }) => {
     dispatch(
       addItemToCart({
         productId: id,
+        variantId: sizeDetails.id,
         name: props.productName,
         itemPrice: sizeDetails.price,
         size: size,

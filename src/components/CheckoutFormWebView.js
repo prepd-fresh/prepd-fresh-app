@@ -1,13 +1,12 @@
 import React, { useRef, useEffect } from "react";
 import Constants from "expo-constants";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Platform } from "react-native";
 import WebView from "react-native-webview";
 
 const CheckoutFormWebView = ({ cartItems, totalPrice, cartStatus }) => {
   const dispatch = useDispatch();
   const webView = useRef();
-  const webViewHeight = useSelector(state => state.webViewHeight);
 
   useEffect(() => {
     if (webView.hasOwnProperty("current")) {
@@ -26,6 +25,9 @@ const CheckoutFormWebView = ({ cartItems, totalPrice, cartStatus }) => {
       })
     );
 
+  const handleMessageFromWV = event =>
+    dispatch(JSON.parse(event.nativeEvent.data));
+
   const getWebViewSource = () => {
     if (!Constants.isDevice) {
       return Platform.OS === "ios"
@@ -41,7 +43,7 @@ const CheckoutFormWebView = ({ cartItems, totalPrice, cartStatus }) => {
       scrollEnabled={false}
       onLoad={sendStateToWebView}
       style={{ height: 1000 }}
-      onMessage={event => dispatch(JSON.parse(event.nativeEvent.data))}
+      onMessage={handleMessageFromWV}
       source={{ uri: getWebViewSource() }}
     />
   );

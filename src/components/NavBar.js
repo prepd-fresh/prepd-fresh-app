@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { toggleCartVisibility } from "../actions";
 import styled from "styled-components/native";
 
-const NavMenu = () => {
+const NavMenu = ({ cartIsVisible }) => {
   const dispatch = useDispatch();
   const handleCheckoutPanelToggle = () => {
     dispatch(toggleCartVisibility());
@@ -14,7 +14,10 @@ const NavMenu = () => {
   return (
     <NavBarView>
       <Text>Prep'd Fresh</Text>
-      <CartButton title="CART" onPress={handleCheckoutPanelToggle} />
+      <CartButton
+        title={cartIsVisible ? "BACK" : "CART"}
+        onPress={handleCheckoutPanelToggle}
+      />
     </NavBarView>
   );
 };

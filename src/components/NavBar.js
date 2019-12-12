@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Keyboard } from "react-native";
+import { Image, Keyboard } from "react-native";
 import { useDispatch } from "react-redux";
 import { toggleCartVisibility } from "../actions";
 import styled from "styled-components/native";
@@ -13,7 +13,11 @@ const NavMenu = ({ cartIsVisible }) => {
 
   return (
     <NavBarView>
-      <Text>Prep'd Fresh</Text>
+      <LogoWrapper
+        resizeMode="contain"
+        resizeMethod="scale"
+        source={require("../../assets/cropped-logo-small.png")}
+      />
       <CartButton
         title={cartIsVisible ? "BACK" : "CART"}
         onPress={handleCheckoutPanelToggle}
@@ -36,6 +40,15 @@ const NavBarView = styled.View`
   elevation: 6;
   padding-top: 40px;
   z-index: 9999;
+`;
+
+const LogoWrapper = styled.Image`
+  border-radius: 5px;
+  ${"" /* flex: 1; */}
+  align-self: flex-end;
+  width: 150px;
+  height: 25px;
+  margin-bottom: 5px;
 `;
 
 const CartButton = styled.Button`

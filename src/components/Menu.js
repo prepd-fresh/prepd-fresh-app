@@ -4,7 +4,6 @@ import styled from "styled-components/native";
 import MealCard from "./MealCard";
 
 const isProductType = desiredType => product => desiredType === product.type;
-const toProductByIdFrom = productsObj => productId => productsObj[productId];
 const toMealCardFromMealWith = sizeVariants => meal => (
   <MealCard key={meal.id} {...{ ...meal, sizeVariants }} />
 );
@@ -23,8 +22,7 @@ const Menu = ({ products, ...props }) => (
       28. Order by 11:59pm Friday, July 26 to receive your delivery this Sunday.
     </Text>
     <View style={{ marginBottom: 100 }}>
-      {Object.keys(products)
-        .map(toProductByIdFrom(products))
+      {Object.values(products)
         .filter(isProductType("meal"))
         .map(toMealCardFromMealWith(props.productSizeVariants))}
     </View>

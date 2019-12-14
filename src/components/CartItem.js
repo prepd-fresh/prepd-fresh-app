@@ -6,10 +6,16 @@ import styled from "styled-components/native";
 
 const CartItem = ({ cartItem: { name, ...cartItem } }) => {
   const dispatch = useDispatch();
+  console.log(cartItem);
   const removeFromCart = () => dispatch(removeItemFromCart(cartItem.id));
   const updateItemQty = e => dispatch(updateCartItemQty(cartItem.id, e));
   return (
     <CartItemView>
+      <MealImageWrapper
+        resizeMode="cover"
+        resizeMethod="scale"
+        source={{ uri: cartItem.imageUrl }}
+      />
       <CartItemDetailsView>
         <CartItemName>
           {name.substr(0, 27)}
@@ -31,7 +37,9 @@ const CartItem = ({ cartItem: { name, ...cartItem } }) => {
               borderColor: "#AAA",
               paddingLeft: 5,
               borderWidth: 1,
-              height: 20
+              height: 20,
+              width: 25,
+              alignSelf: "flex-end"
             }}
             value={String(cartItem.qty)}
             onChangeText={updateItemQty}
@@ -49,11 +57,23 @@ const CartItemView = styled.View`
   background-color: #fff;
   align-items: center;
   justify-content: space-between;
-  padding: 20px;
+  ${"" /* padding: 20px; */}
   border-bottom-width: 1px;
   border-bottom-color: #ddd;
   height: 60px;
+  margin-bottom: 5px;
 `;
+
+const MealImageWrapper = styled.Image`
+  border-radius: 5px;
+  ${"" /* flex: 1; */}
+  align-self: center;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  margin-bottom: 5px;
+`;
+
 const CartItemName = styled.Text`
   font-size: 11px;
   color: #3e444b;

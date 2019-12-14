@@ -36,7 +36,8 @@ const MealCard = ({ veggie, ...props }) => {
         itemPrice: sizeDetails.price,
         size: size,
         veggie: veggie,
-        qty: quantity
+        qty: quantity,
+        imageUrl: props.imageUrl
       })
     );
 

@@ -7,7 +7,7 @@ import Cart from "./Cart";
 import CheckoutFormWebView from "./CheckoutFormWebView";
 import styled from "styled-components/native";
 
-const Checkout = ({ cartIsVisible }) => {
+const Checkout = ({ cartIsVisible, nextWeekdayDate }) => {
   const cartItems = useSelector(state => ({ ...state.cart }));
   const totalPrice = Object.keys(cartItems)
     .reduce(
@@ -19,7 +19,7 @@ const Checkout = ({ cartIsVisible }) => {
     )
     .toFixed(2);
   const showCheckoutWebView = () =>
-    !(cartStatus === CartStatuses.DEFAULT && totalPrice === 0);
+    !(cartStatus === CartStatuses.DEFAULT && totalPrice == 0);
   const showCheckoutInfo = () =>
     showCheckoutWebView() && cartStatus !== CartStatuses.SUCCESS;
   const cartStatus = useSelector(state => state.cartStatus);
@@ -42,9 +42,8 @@ const Checkout = ({ cartIsVisible }) => {
             <Text>Total ${totalPrice}</Text>
           </TotalView>
           <Text>
-            *Meals are delivered every Sunday. The next delivery date is Sunday,
-            July 28. Order by 11:59pm Friday, July 26 to receive your delivery
-            this Sunday.
+            *Meals are delivered every Sunday. The next delivery date is{" "}
+            {nextWeekdayDate(7)}.
           </Text>
         </React.Fragment>
       )}

@@ -8,7 +8,7 @@ const toMealCardFromMealWith = sizeVariants => meal => (
   <MealCard key={meal.id} {...{ ...meal, sizeVariants }} />
 );
 
-const Menu = ({ products, ...props }) => (
+const Menu = ({ products, nextWeekdayDate, ...props }) => (
   <ScrollView
     contentContainerStyle={{
       padding: 20,
@@ -18,8 +18,8 @@ const Menu = ({ products, ...props }) => (
     <MenuHed>Menu</MenuHed>
     <Text>Choose from our weekly rotating selection of dishes!</Text>
     <Text>
-      Meals are delivered every Sunday. The next delivery date is Sunday, July
-      28. Order by 11:59pm Friday, July 26 to receive your delivery this Sunday.
+      Meals are delivered every Sunday. The next delivery date is
+      {" " + nextWeekdayDate(7)}.
     </Text>
     <View style={{ marginBottom: 100 }}>
       {Object.values(products)

@@ -32,6 +32,16 @@ const Main = () => {
   const openCart = () => {
     if (cartIsNotVisible) dispatch(toggleCartVisibility());
   };
+  const nextWeekdayDate = day_in_week => {
+    var ret = new Date();
+    ret.setDate(ret.getDate() + ((day_in_week - 1 - ret.getDay() + 7) % 7) + 1);
+    return ret.toLocaleString("default", {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+      year: "numeric"
+    });
+  };
 
   if (!isReady) {
     return (
@@ -53,8 +63,18 @@ const Main = () => {
       }}
     >
       <NavBar cartIsVisible={cartIsVisible} />
-      <Checkout cartIsVisible={cartIsVisible} />
-      <Menu {...{ products, productSizeVariants, cartIsNotVisible }} />
+      <Checkout
+        cartIsVisible={cartIsVisible}
+        nextWeekdayDate={nextWeekdayDate}
+      />
+      <Menu
+        {...{
+          products,
+          productSizeVariants,
+          cartIsNotVisible,
+          nextWeekdayDate
+        }}
+      />
       <CartLinkPopup
         cartIsNotVisible={cartIsNotVisible}
         cartItemsExist={cartItemsExist}

@@ -4,7 +4,7 @@ import { Text } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { CartStatuses } from "../actions";
 import Cart from "./Cart";
-import CheckoutFormWebView from "./CheckoutFormWebView";
+import CheckoutForm from "./CheckoutForm";
 import styled from "styled-components/native";
 
 const Checkout = ({ cartIsVisible, nextWeekdayDate }) => {
@@ -48,7 +48,7 @@ const Checkout = ({ cartIsVisible, nextWeekdayDate }) => {
         </React.Fragment>
       )}
       {showCheckoutWebView() ? (
-        <CheckoutFormWebView
+        <CheckoutForm
           cartStatus={cartStatus}
           totalPrice={totalPrice}
           cartItems={cartItems}

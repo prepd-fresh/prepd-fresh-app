@@ -6,7 +6,6 @@ import styled from "styled-components/native";
 
 const CartItem = ({ cartItem: { name, ...cartItem } }) => {
   const dispatch = useDispatch();
-  console.log(cartItem);
   const removeFromCart = () => dispatch(removeItemFromCart(cartItem.id));
   const updateItemQty = e => dispatch(updateCartItemQty(cartItem.id, e));
   return (

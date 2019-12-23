@@ -31,7 +31,8 @@ const WhiteText = styled.Text`
 `;
 
 const StyledTouchableOpacity = styled.TouchableOpacity`
-  position: absolute;
+  position: ${({ cartIsNotVisible, cartItemsExist }) =>
+    cartIsNotVisible && cartItemsExist ? "absolute" : "relative"};
   flex-direction: row;
   background-color: orange;
   bottom: 40px;

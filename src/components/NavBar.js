@@ -21,6 +21,7 @@ const NavMenu = ({ cartIsVisible }) => {
       <CartButton
         title={cartIsVisible ? "BACK" : "CART"}
         onPress={handleCheckoutPanelToggle}
+        color="#fa9600"
       />
     </NavBarView>
   );

@@ -12,6 +12,7 @@ const Menu = ({ products, nextWeekdayDate, ...props }) => (
   <ScrollView
     contentContainerStyle={{
       padding: 20,
+      justifyContent: "flex-start",
       display: props.cartIsNotVisible ? "flex" : "none"
     }}
   >

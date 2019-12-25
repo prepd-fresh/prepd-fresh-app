@@ -50,14 +50,14 @@ const OuterCircle = styled.View`
   padding: 0;
   justify-content: center;
   align-items: center;
-  border: 2px solid ${props => (props.isSelected ? "orange" : "grey")};
+  border: 2px solid ${props => (props.isSelected ? "#fa9600" : "grey")};
   height: 18px;
   width: 18px;
   border-radius: 9px;
 `;
 
 const InnerCircle = styled.View`
-  background-color: orange;
+  background-color: #fa9600;
   height: 10px;
   width: 10px;
   border-radius: 5px;

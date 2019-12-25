@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { View } from "react-native";
+import NetInfo from "@react-native-community/netinfo";
+import { View, Text } from "react-native";
 import Checkout from "./Checkout";
 import NavBar from "./NavBar";
 import Menu from "./Menu";
@@ -11,6 +12,7 @@ import { AppLoading } from "expo";
 const Main = () => {
   const dispatch = useDispatch();
   const [isReady, setIsReady] = useState(false);
+  const [networkAvailable, setNetworkAvailable] = useState(true);
   const cartIsVisible = useSelector(state => state.cartIsVisible);
   const cartIsNotVisible = !cartIsVisible;
   const products = useSelector(state => state.products);
@@ -43,6 +45,13 @@ const Main = () => {
     });
   };
 
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(state => {
+      // console.log(state);
+      setNetworkAvailable(state.isConnected);
+    });
+  }, []);
+
   if (!isReady) {
     return (
       <AppLoading
@@ -53,7 +62,7 @@ const Main = () => {
     );
   }
 
-  return (
+  return networkAvailable ? (
     <View
       style={{
         flex: 1,
@@ -82,6 +91,10 @@ const Main = () => {
         total={totalPrice}
         openCart={openCart}
       />
+    </View>
+  ) : (
+    <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
+      <Text>Unable to connect to the internet. Please try again later.</Text>
     </View>
   );
 };

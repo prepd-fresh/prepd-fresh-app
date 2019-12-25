@@ -11,30 +11,30 @@ const CheckoutForm = props => {
   const onSubmit = () => setSubmitting(true);
 
   const initialValues = {
-    // firstName: "",
-    // lastName: "",
-    // billingAddressLine1: "",
-    // billingAddressLine2: "",
-    // billingAddressCity: "",
-    // useBillingAddressForDelivery: true,
-    // deliveryAddressLine1: "",
-    // deliveryAddressLine2: "",
-    // deliveryAddressCity: "",
-    // phoneNumber: "",
-    // email: "",
-    // orderNotes: ""
-    firstName: "Test",
-    lastName: "test",
-    billingAddressLine1: "test",
+    firstName: "",
+    lastName: "",
+    billingAddressLine1: "",
     billingAddressLine2: "",
-    billingAddressCity: "test",
+    billingAddressCity: "",
     useBillingAddressForDelivery: true,
-    deliveryAddressLine1: "test",
+    deliveryAddressLine1: "",
     deliveryAddressLine2: "",
-    deliveryAddressCity: "test",
-    phoneNumber: "4242424242",
-    email: "test@test.com",
-    orderNotes: "ignore"
+    deliveryAddressCity: "",
+    phoneNumber: "",
+    email: "",
+    orderNotes: ""
+    // firstName: "Test",
+    // lastName: "test",
+    // billingAddressLine1: "test",
+    // billingAddressLine2: "",
+    // billingAddressCity: "test",
+    // useBillingAddressForDelivery: true,
+    // deliveryAddressLine1: "test",
+    // deliveryAddressLine2: "",
+    // deliveryAddressCity: "test",
+    // phoneNumber: "4242424242",
+    // email: "test@test.com",
+    // orderNotes: "ignore"
   };
 
   return (

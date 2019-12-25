@@ -70,10 +70,12 @@ const CheckoutFormWebView = ({
   const getWebViewSource = () => {
     if (!Constants.isDevice) {
       return Platform.OS === "ios"
-        ? "http://localhost:9000"
-        : "http://10.0.2.2:9000";
+        ? "https://prepd-fresh-checkout-server.herokuapp.com/"
+        : "https://prepd-fresh-checkout-server.herokuapp.com//";
+      //   "http://localhost:9000"
+      // : "http://10.0.2.2:9000";
     }
-    return "https://staging-prepdfresh.herokuapp.com";
+    return "https://prepd-fresh-checkout-server.herokuapp.com//";
   };
 
   return (
@@ -82,7 +84,7 @@ const CheckoutFormWebView = ({
         height: 40,
         marginTop: 20,
         marginLeft: 10,
-        marginRight: 15,
+        marginRight: 10,
         paddingLeft: 5,
         paddingRight: 5,
         borderRadius: 2.5,

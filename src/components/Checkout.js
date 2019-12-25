@@ -21,7 +21,8 @@ const Checkout = ({ cartIsVisible, nextWeekdayDate }) => {
   const showCheckoutWebView = () =>
     !(cartStatus === CartStatuses.DEFAULT && totalPrice == 0);
   const showCheckoutInfo = () =>
-    showCheckoutWebView() && cartStatus !== CartStatuses.SUCCESS;
+    showCheckoutWebView() &&
+    ![CartStatuses.SUCCESS, CartStatuses.PROCESSING].includes(cartStatus);
   const cartStatus = useSelector(state => state.cartStatus);
   return (
     <KeyboardAwareScrollView

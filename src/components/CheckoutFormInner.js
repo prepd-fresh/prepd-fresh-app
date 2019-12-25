@@ -15,7 +15,7 @@ const CheckoutFormInner = ({
   cartDetails,
   formik
 }) => (
-  <View>
+  <React.Fragment>
     <DefaultView status={cartDetails.cartStatus}>
       <StyledP>
         {console.log("cart status! ", cartDetails.cartStatus)}Would you like to
@@ -107,7 +107,7 @@ const CheckoutFormInner = ({
     <FailureView status={cartDetails.cartStatus}>
       <FormFailure />
     </FailureView>
-  </View>
+  </React.Fragment>
 );
 
 const DefaultView = styled.View`
@@ -117,14 +117,23 @@ const DefaultView = styled.View`
 const ProcessingView = styled.View`
   display: ${({ status }) =>
     status === CartStatuses.PROCESSING ? "flex" : "none"};
+  height: 500px;
+  justify-content: center;
+  align-items: center;
 `;
 const SuccessView = styled.View`
   display: ${({ status }) =>
     status === CartStatuses.SUCCESS ? "flex" : "none"};
+  height: 500px;
+  justify-content: center;
+  align-items: center;
 `;
 const FailureView = styled.View`
   display: ${({ status }) =>
     status === CartStatuses.FAILED ? "flex" : "none"};
+  height: 500px;
+  justify-content: center;
+  align-items: center;
 `;
 const StyledP = styled.Text`
   color: #666;

@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Prep'd Fresh",
-    "slug": "prepd-checkout-native",
+    "slug": "prepdfresh-react-app",
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "platforms": ["ios", "android", "web"],
@@ -17,8 +17,13 @@
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
+    "android": {
+      "package": "com.prepdfresh.prepdfresh"
+    },
     "ios": {
-      "supportsTablet": true
-    }
+      "supportsTablet": true,
+      "bundleIdentifier": "com.prepdfresh.prepdfresh"
+    },
+    "description": ""
   }
 }

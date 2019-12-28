@@ -27,6 +27,7 @@ const Checkout = ({ cartIsVisible, nextWeekdayDate }) => {
   return (
     <KeyboardAwareScrollView
       bounces={false}
+      enableOnAndroid={true}
       contentContainerStyle={{
         paddingLeft: 20,
         paddingRight: 20,

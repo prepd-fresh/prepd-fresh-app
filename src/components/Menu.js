@@ -29,7 +29,16 @@ const Menu = ({ products, nextWeekdayDate, ...props }) => {
         Meals are delivered every Sunday. The next delivery date is
         {" " + nextWeekdayDate(7)}.
       </Text>
-      <View style={{ marginBottom: 100 }}>{meals}</View>
+      <View style={{ marginBottom: 100 }}>
+        {meals.length ? (
+          meals
+        ) : (
+          <Text>
+            Our meals are currently all out of stock. Please check back again
+            soon!
+          </Text>
+        )}
+      </View>
     </ScrollView>
   );
 };

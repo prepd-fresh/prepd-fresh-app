@@ -44,7 +44,7 @@ const Checkout = ({ cartIsVisible, nextWeekdayDate }) => {
             <Text>Total ${totalPrice}</Text>
           </TotalView>
           <Text>
-            *Meals are delivered every Sunday. The next delivery date is{" "}
+            Meals are delivered every Sunday. The next delivery date is{" "}
             {nextWeekdayDate(7)}.
           </Text>
         </React.Fragment>

@@ -24,10 +24,10 @@ const Menu = ({ products, nextWeekdayDate, ...props }) => {
       }}
     >
       <MenuHed>Menu</MenuHed>
-      <Text>Choose from our weekly rotating selection of dishes!</Text>
+      <Text>Choose from our weekly rotating selection of dishes. </Text>
       <Text>
-        Meals are delivered every Sunday. The next delivery date is
-        {" " + nextWeekdayDate(7)}.
+        Meals are delivered every Sunday. The next delivery date is{" "}
+        {nextWeekdayDate(7)}.
       </Text>
       <View style={{ marginBottom: 100 }}>
         {meals.length ? (

@@ -17,10 +17,6 @@ const CheckoutFormInner = ({
 }) => (
   <React.Fragment>
     <DefaultView status={cartDetails.cartStatus}>
-      <StyledP>
-        {console.log("cart status! ", cartDetails.cartStatus)}Would you like to
-        finish your purchase??
-      </StyledP>
       <CheckoutFormWebView
         formValues={formik.values}
         submitting={submitting}

@@ -37,12 +37,18 @@ const Main = () => {
   const nextWeekdayDate = day_in_week => {
     var ret = new Date();
     ret.setDate(ret.getDate() + ((day_in_week - 1 - ret.getDay() + 7) % 7) + 1);
-    return ret.toLocaleString("default", {
+
+    ret = ret.toLocaleString("default", {
       weekday: "long",
       month: "long",
       day: "numeric",
       year: "numeric"
     });
+
+    var dateData = ret.toString().split(" ");
+    var dateString = dateData[0] + " " + dateData[1] + " " + dateData[2];
+
+    return dateString;
   };
 
   useEffect(() => {

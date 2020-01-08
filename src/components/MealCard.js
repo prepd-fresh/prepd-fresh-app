@@ -21,7 +21,7 @@ const MealCard = ({ veggie, ...props }) => {
 
   const increment = () => handleQuantityChange(quantity + 1);
   const decrement = () =>
-    handleQuantityChange(quantity - 1 < 0 ? 0 : quantity - 1);
+    handleQuantityChange(quantity - 1 < 1 ? 1 : quantity - 1);
 
   const dispatch = useDispatch();
 

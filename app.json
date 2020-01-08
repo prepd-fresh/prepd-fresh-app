@@ -5,7 +5,7 @@
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "platforms": ["ios", "android", "web"],
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -24,6 +24,6 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.prepdfresh.prepdfresh"
     },
-    "description": ""
+    "description": "Hamilton residents order Prep'd Fresh meals through the official Prep'd Fresh app! Spend less time cooking & more time liersiing Healthy, ready-to-eat meals. Free weekly delivery."
   }
 }
